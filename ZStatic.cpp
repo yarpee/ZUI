@@ -5,7 +5,7 @@
 
 CZStatic::CZStatic(void)
 : m_dwColor(0)
-, m_dwStyle(DT_CENTER)
+, m_dwTextStyle(DT_CENTER)
 {
 }
 
@@ -20,12 +20,12 @@ LPCTSTR CZStatic::GetClassName()
 
 BOOL CZStatic::HandleEvent(EVENT& e)
 {
-	return FALSE;
+	return CZControl::HandleEvent(e);
 }
 
 VOID CZStatic::OnPaintText(HDC hDC)
 {
-	CZUIRender::DrawText(hDC, m_strText, m_dwColor, m_dwStyle, m_rcSize);
+	CZUIRender::DrawText(hDC, m_strText, m_dwColor, m_dwTextStyle, m_rcSize);
 }
 
 VOID CZStatic::SetText(LPCTSTR lpszText)
@@ -51,10 +51,10 @@ DWORD CZStatic::GetTextColor()
 
 VOID CZStatic::SetTextStyle(DWORD dwStyle)
 {
-	m_dwStyle = dwStyle;
+	m_dwTextStyle = dwStyle;
 }
 
 DWORD CZStatic::GetTextStyle()
 {
-	return m_dwStyle;
+	return m_dwTextStyle;
 }

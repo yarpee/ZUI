@@ -32,7 +32,7 @@ public:
 	DWORD	GetTextStyle();
 
 protected:
-	CAtlString	m_strText;	// 文本
-	DWORD		m_dwColor;	// 颜色
-	DWORD		m_dwStyle;	// 样式
+	CAtlString	m_strText;		// 文本
+	DWORD		m_dwColor;		// 颜色
+	DWORD		m_dwTextStyle;	// 样式
 };

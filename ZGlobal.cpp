@@ -2,6 +2,7 @@
 #include "ZAppModule.h"
 #include "ZMessageLoop.h"
 #include "ZUIMgr.h"
+#include "ZWindow.h"
 
 CZAppModule g_theApp;
 CZMessageLoop g_theLoop;
@@ -10,9 +11,10 @@ CZMessageLoop g_theLoop;
 // Application Module
 BOOL InitAppModule(HINSTANCE hInstance)
 {
-	return g_theApp.Init(hInstance);
+	return g_theApp.Init(hInstance);	// TODO: Call Term()
 }
 
+// CZWindow“¿¿µ”⁄¥À
 HINSTANCE GetInstance()
 {
 	return g_theApp.GetInstance();

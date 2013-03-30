@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ZSync.h"
+#include "ZDef.h"
 
 class CZAppModule
 {
@@ -21,6 +21,6 @@ public:
 	HINSTANCE GetInstance();
 
 protected:
-	CZCriticalSection m_cs;
+	CZCritSec m_cs;
 	HINSTANCE m_hInstance;
 };

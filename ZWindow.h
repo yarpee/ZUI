@@ -25,6 +25,9 @@ public:
 
 	CZControl*		GetRootControl();
 
+	// 显示窗口
+	VOID ShowWindow(BOOL bShow = TRUE, BOOL bFocus = TRUE);
+
 protected:
 	// 注册窗口类
 	BOOL			RegisterWindowClass();
@@ -48,9 +51,6 @@ protected:
 		HMENU hMenu = NULL);
 //#pragma pop_macro("CreateWindow")
 //#endif
-
-	// 显示窗口
-	VOID ShowWindow(BOOL bShow = TRUE, BOOL bFocus = TRUE);
 
 	// 消息处理函数
 	static LRESULT CALLBACK	WindowProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);

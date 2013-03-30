@@ -1,6 +1,7 @@
 #include "ZWindow.h"
 #include "ZGlobal.h"
 #include "ZUIMgr.h"
+#include "ZControl.h"
 #include <tchar.h>
 #include <atldef.h>	// for ATLASSERT
 
@@ -16,6 +17,7 @@ CZWindow::CZWindow(void)
 
 CZWindow::~CZWindow(void)
 {
+	DetachZUIMgr();
 }
 
 CZWindow::operator HWND() const
@@ -27,10 +29,25 @@ VOID CZWindow::AttachZUIMgr(CZUIMgr* pMgr)
 {
 	ATLASSERT(pMgr != NULL);
 	m_pZUIMgr = pMgr;
+	ATLASSERT(NULL == m_pRootCtrl);
+	m_pRootCtrl = new CZControl();
+	if(m_pRootCtrl != NULL)
+	{
+		m_pRootCtrl->AttachZUIMgr(pMgr);
+		RECT rc = {0};
+		::GetClientRect(m_hWnd, &rc);
+		m_pRootCtrl->SetSize(rc);
+	}
 }
 
 CZUIMgr* CZWindow::DetachZUIMgr()
 {
+	if(m_pRootCtrl != NULL)
+	{
+		m_pRootCtrl->DetachZUIMgr();
+		delete m_pRootCtrl;
+		m_pRootCtrl = NULL;
+	}
 	CZUIMgr* pMgr = m_pZUIMgr;
 	m_pZUIMgr = NULL;
 	return pMgr;

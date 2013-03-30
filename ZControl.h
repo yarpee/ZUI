@@ -7,19 +7,10 @@
 
 #pragma once
 
-#include <Windows.h>
-#include <atlstr.h>		// for CAtlString, #include <atlbase.h>
+#include "ZDef.h"
+#include "ZGlobal.h"
+#include <atlstr.h>		// for CAtlString
 #include <atltypes.h>	// for CRect
-//#include <atlbase.h>	// for ATL::CSimpleArray
-
-typedef struct _EVENT
-{
-	DWORD	dwEventID;
-	WPARAM	wParam;
-	LPARAM	lParam;
-	DWORD	dwTimestamp;
-	POINT	ptMouse;
-} EVENT, *PEVENT;
 
 class CZUIMgr;
 
@@ -29,7 +20,7 @@ public:
 	CZControl(void);
 	~CZControl(void);
 
-	// 必须调用, 一般由CZWindow调用
+	// DUI必须调用, 由CZWindow和AddChild调用
 	VOID AttachZUIMgr(CZUIMgr* pMgr);
 	CZUIMgr* DetachZUIMgr();
 
@@ -44,28 +35,70 @@ public:
 	VOID SetParent(CZControl* pParent);
 	const CZControl* GetParent();
 
+	// Children
+	VOID AddChild(CZControl* pChild);
+
 	// Size
 	VOID SetSize(RECT& rcSize);
 	const RECT& GetSize();
 
+	// Padding
+	VOID SetPadding(RECT& rcPadding);
+	const RECT& GetPadding();
+
 	// Visible
-	VOID SetVisible(BOOL bVisible);
+	VOID SetVisible(BOOL bVisible = TRUE);
 	BOOL IsVisible();
+
+	// Enable
+	VOID SetEnable(BOOL bEnable = TRUE);
+	BOOL IsEnable();
+
+	// Focus
+	VOID SetFocus(BOOL bFocus = TRUE);
+	BOOL IsFocus();
+
+	// Tooltip
+	VOID SetTooltip(LPCTSTR lpszTooltip);
+	LPCTSTR GetTooltip();
+
+	// Border
+	VOID SetBorderSize(DWORD dwSize);
+	VOID SetBorderRound(SIZE& xyRound);
+	VOID SetBorderColor(DWORD dwColor);
+	VOID SetBorderFocusColor(DWORD dwColor);
 
 	// 事件处理函数
 	virtual BOOL HandleEvent(EVENT& e);
+	
+	// Notify
+	VOID SendNotify(DWORD dwNotifyID);
 
 	// 绘制
 	VOID Invalidate();
 	virtual VOID OnPaint(HDC hDC, RECT& rc);
 	virtual VOID OnPaintStateImage(HDC hDC);
 	virtual VOID OnPaintText(HDC hDC);
+	virtual VOID OnPaintBorder(HDC hDC);
+
+	CZControl* FindControl(POINT& pt);
 
 protected:
-	CZUIMgr*						m_pZUIMgr;	// ZUI Mgr
-	CZControl*						m_pParent;	// 父控件
-	ATL::CSimpleArray<CZControl*>	m_aChild;	// 子控件
-	CAtlString						m_strName;	// 控件名
-	CRect							m_rcSize;	// 控件位置、大小
-	BOOL							m_bVisible;	// 是否可见
+	CZUIMgr*						m_pZUIMgr;				// ZUI Mgr
+	CZControl*						m_pParent;				// 父控件
+	ATL::CSimpleArray<CZControl*>	m_aChild;				// 子控件
+	CAtlString						m_strName;				// 控件名
+	CRect							m_rcSize;				// 控件位置、大小
+	CRect							m_rcPadding;			// Padding
+	CRect							m_rcPaint;				// 与失效矩形的交集
+	BOOL							m_bVisible;				// 是否可见
+	BOOL							m_bEnable;				// 是否可用
+	BOOL							m_bFocus;				// 是否有焦点
+	CAtlString						m_strTooltip;			// Tooltip
+
+	// Border
+	DWORD							m_dwBorderSize;			// 粗细
+	CSize							m_xyBorderRound;		// 圆角
+	DWORD							m_dwBorderColor;		// 颜色
+	DWORD							m_dwBorderFocusColor;	// 有焦点时的颜色
 };

@@ -175,6 +175,18 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\3rdparty\stb_image.c"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\stdafx.cpp"
 				>
 				<FileConfiguration
@@ -267,18 +279,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\ZSync.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath=".\ZUI.cpp"
 				>
 			</File>
@@ -354,10 +354,6 @@
 			</File>
 			<File
 				RelativePath=".\ZStatic.h"
-				>
-			</File>
-			<File
-				RelativePath=".\ZSync.h"
 				>
 			</File>
 			<File

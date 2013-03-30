@@ -9,13 +9,6 @@
 
 #include "ZStatic.h"
 
-#define BS_NORMAL	0
-#define BS_HOVER	1
-#define BS_PUSH		2
-#define BS_FOCUS	3
-#define BS_DISABLE	4
-#define BS_MAX		5
-
 class CZButton : public CZStatic
 {
 public:
@@ -27,7 +20,13 @@ public:
 	virtual BOOL	HandleEvent(EVENT& e);
 	virtual VOID	OnPaintStateImage(HDC hDC);
 
+	VOID SetStateImage(DWORD dwState, LPCTSTR lpszPath);
+
 protected:
 	DWORD m_dwState;
-	CAtlString m_aStateImage[BS_MAX];
+	CAtlString m_strNormalImage;
+	CAtlString m_strHoverImage;
+	CAtlString m_strPushImage;
+	CAtlString m_strFocusImage;
+	CAtlString m_strDisableImage;
 };
